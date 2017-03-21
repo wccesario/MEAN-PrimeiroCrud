@@ -1,0 +1,40 @@
+<div class="container">
+	<div class="jumbotron">
+		<center><h2>Shopping</h2></center>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-4">		
+			<label>Busca:</label>
+			<input type="text" ng-model="produtosfiltro" class="form-control">
+		</div>
+		<div class="col-xs-2">		
+			<label>Cotação:</label>
+			<input type="text" ng-model="cotacao" class="form-control">
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6">
+			<h2>Total (dolares):</h2> <p> USD {{ getTotal('d') }}</p>
+		</div>
+		<div class="col-xs-6">
+			<h2>Total (reais):</h2> <p> R$ {{ getTotal('r') }}</p>
+		</div>
+		<table class="table">
+			<th class="text-center">Produto</th>
+			<th class="text-center">Preço USD</th>
+			<th class="text-center">Preço R$</th>
+			<tr ng-repeat="produto in produtos | filter: produtosfiltro">
+				<td class="text-center">{{produto.nome}}</td>
+				<td class="text-center">{{produto.valor}}</td>
+				<td class="text-center">{{produto.valor * cotacao}}</td>
+				<td class="text-center"><a href="#" ng-click="deletaproduto(produto._id)">X</a></td>
+				<td class="text-center"><a href="/#!/editaProduto/{{produto._id}}">#</a></td>
+				
+			</tr>
+		</table>
+
+		
+	</div>
+</div>

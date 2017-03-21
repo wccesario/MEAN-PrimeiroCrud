@@ -1,0 +1,25 @@
+<div class="container">
+	<center><h2>Cadastro Produto</h2></center>
+	<form name="formulario" ng-submit="submitproduto()">
+		<div class="form-group">
+
+			<label>Nome:</label>
+			<input type="text" class="form-control" ng-model="produto.nome">
+		</div>
+		<div class="form-group">
+
+			<label>Valor:</label>
+			<input type="text" class="form-control" ng-model="produto.valor">
+		</div>
+		<div class="form-group">
+
+			<label>Link:</label>
+			<input type="text" class="form-control" ng-model="produto.link">
+		</div>
+		
+		
+
+		<input class="btn btn-success" type="submit" value="Cadastrar">
+
+	</form>
+</div>
