@@ -15,11 +15,11 @@
 	</div>
 
 	<div class="row">
-		<div class="col-xs-6">
-			<h2>Total (dolares):</h2> <p> USD {{ getTotal('d') }}</p>
+		<div class="col-xs-5">
+			<h2>Total (dolares):</h2> <p>  {{ getTotal('d') | currency }}</p>
 		</div>
-		<div class="col-xs-6">
-			<h2>Total (reais):</h2> <p> R$ {{ getTotal('r') }}</p>
+		<div class="col-xs-5">
+			<h2>Total (reais):</h2> <p>  {{ getTotal('r') | currency:'R$' }}</p>
 		</div>
 		<table class="table">
 			<th class="text-center">Produto</th>
@@ -27,8 +27,8 @@
 			<th class="text-center">Preço R$</th>
 			<tr ng-repeat="produto in produtos | filter: produtosfiltro">
 				<td class="text-center">{{produto.nome}}</td>
-				<td class="text-center">{{produto.valor}}</td>
-				<td class="text-center">{{produto.valor * cotacao}}</td>
+				<td class="text-center">{{produto.valor | currency}}</td>
+				<td class="text-center">{{produto.valor * cotacao | currency:'R$'}}</td>
 				<td class="text-center"><a href="#" ng-click="deletaproduto(produto._id)">X</a></td>
 				<td class="text-center"><a href="/#!/editaProduto/{{produto._id}}">#</a></td>
 				
