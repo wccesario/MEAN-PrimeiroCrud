@@ -1,4 +1,5 @@
-angular.module('shopping', ['ngRoute']).config(function($routeProvider, $locationProvider){
+angular.module('shopping', ['ngRoute', 'meusServicos'])
+.config(function($routeProvider, $locationProvider){
 
 
 	$routeProvider.when('/', {

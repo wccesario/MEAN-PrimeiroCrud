@@ -1,4 +1,4 @@
-angular.module('shopping').controller('ProdutoController', function($scope, $http, $routeParams){
+angular.module('shopping').controller('ProdutoController', function($scope, $routeParams, $http, produtoResource, produtoTransactions){
 
 	$scope.produtos = [];
 
@@ -8,74 +8,45 @@ angular.module('shopping').controller('ProdutoController', function($scope, $htt
 
     $scope.cotacao = '';
 
-
     if($routeParams.id){
 
-        $http.get('/produtos/' + $routeParams.id)
-        .then(function(retorno) {
-            $scope.produto = retorno.data;
-        })
-        .catch(function(erro) {
-            console.log(erro);
-        }); 
-
+        produtoResource.get({id:$routeParams.id}, function(produto){
+            $scope.produto = produto;
+        }, function(err){
+            alert(err);
+        });
 
     } else {
 
-        $http.get('/produtos')
-        .then(function(retorno) {
-            $scope.produtos = retorno.data;
-        })
-        .catch(function(erro) {
-            console.log(erro);
-        }); 
-        
+        produtoResource.query(function(produtos){
+
+            $scope.produtos = produtos;
+
+        }, function(err){
+            console.log(err);
+        });
+   
     }
-
-
 
     $scope.submitproduto = function(){
 
-
-        if($routeParams.id){
-            
-            $http.put('/produtos', $scope.produto).then(function(){
-                
-                alert('Produto alterado com sucesso');
-                $scope.produto = {};
-
-            }).catch(function(err){
-                console.log(err);
-            })
-
-
-        } else {
-
-            $http.post('/produtos', $scope.produto).then(function(){
-
-                console.log($scope.produto);
-
-                alert('Produto inserido com sucesso');
-                $scope.produto = {};
-
-            }).catch(function(err){
-                console.log(err);
-            })
-        }
-
-
+        produtoTransactions.cadastrar($scope.produto).then(function(dados){
+            alert(dados.mensagem);
+            $scope.produto = {};
+        }, function(err){
+            alert(err);
+        });
     }
 
 
     $scope.deletaproduto = function(id) {
 
-        $http.delete('/produtos/' + id).then(function(response){
+        produtoTransactions.deleteProduto(id).then(function(dados){
+            alert(dados.mensagem);
+        }, function(err){
+            alert(dados.mensagem);
+        });
 
-            console.log(response);
-
-        }).catch(function(err){
-            console.log(err);
-        })
     }
 
     $scope.getTotal = function(currency){
